@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Etch A Sketch</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div id="container">
+    </div>
+</body>
+</html>
+
+<script>
+const container = document.querySelector("#container")
+
+makeGrid()
+
+function makeGrid() {
+    let i = 0
+    while (i < 16) {
+    makeRow()
+    i++
+    }
+}
+
+function makeRow() {
+    const row = document.createElement("div")
+    for (i = 0; i < 16; i++) {
+        const cells = document.createElement("div")
+        row.appendChild(cells).classList = "cell"
+    }
+    container.appendChild(row).classList = "row"
+}
+</script>
