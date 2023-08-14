@@ -7,6 +7,7 @@
     
 </head>
 <body>
+    <button class="button">Click here to change grid size</button>
     <div id="container">
     </div>
 </body>
@@ -14,21 +15,56 @@
 
 <script>
 const container = document.querySelector("#container")
+const button = document.querySelector(".button")
+let number = 16
+button.addEventListener("click", () => {
+    number = +prompt("Enter a number between 1-100")
+    if (number < 100 && typeof number === "number") {
+        removeGrid()
+        makeGrid(number)
+        hoverBlack()
+    } else {
+        alert("Enter a number between 1-100!")
+    }
+})
 
-makeGrid()
+makeGrid(number)
+hoverBlack()
 
-function makeGrid() {
+function hoverBlack() {
+    const boxes = document.querySelectorAll(".cell")
+    boxes.forEach((cell) => {
+        cell.addEventListener("mouseover", () => {
+            cell.classList.add("Black")
+        })
+})
+}
+function removeGrid(){
+    let removeCells = document.querySelectorAll(".row")
+    removeCells.forEach(row => {
+        container.removeChild(row)
+    })
+}
+
+
+function makeGrid(number) {
     let i = 0
-    while (i < 16) {
+    while (i < number) {
     makeRow()
     i++
     }
 }
 
 function makeRow() {
+    let cellWidth = 700/number + "px"
+    let cellHeight = 700/number  + "px"
     const row = document.createElement("div")
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < number; i++) {
         const cells = document.createElement("div")
+        const heightWidth = document.createAttribute("style")
+        heightWidth.value = `height: ${cellHeight}; width: ${cellWidth};`
+        cells.setAttributeNode(heightWidth)
+        
         row.appendChild(cells).classList = "cell"
     }
     container.appendChild(row).classList = "row"
