@@ -7,17 +7,25 @@
     
 </head>
 <body>
-    <button class="button">Click here to change grid size</button>
+    <h1 class="title">Etch A Sketch</h1>
+    <div class="buttons">
+        <button class="button changeGridButton">Change size</button>
+        <button class="button resetGridButton">Reset</button>
+        <button class="button rainbowGridButton">Rainbow</button>
+    </div>
     <div id="container">
     </div>
+    <div class="footer">Made by&nbsp<a class="link" href="https://github.com/CoDinAIy">CoDinAIy</a></div>
 </body>
 </html>
 
 <script>
 const container = document.querySelector("#container")
-const button = document.querySelector(".button")
+const changeGridButton = document.querySelector(".changeGridButton")
+const resetGridButton = document.querySelector(".resetGridButton")
+const rainbowGridButton = document.querySelector(".rainbowGridButton")
 let number = 16
-button.addEventListener("click", () => {
+changeGridButton.addEventListener("click", () => {
     number = +prompt("Enter a number between 1-100")
     if (number < 100 && typeof number === "number") {
         removeGrid()
@@ -28,8 +36,36 @@ button.addEventListener("click", () => {
     }
 })
 
+resetGridButton.addEventListener("click", () => {
+    removeGrid()
+    makeGrid(number)
+    hoverBlack()
+})
+
+rainbowGridButton.addEventListener("click", () => {
+    hoverRainbow()
+})
+
+
+
+
+
+
+
 makeGrid(number)
 hoverBlack()
+
+function hoverRainbow() {
+    const boxes = document.querySelectorAll(".cell")
+    boxes.forEach((cell) => {
+        cell.addEventListener("mouseover", () => {
+            cell.classList.add("rainbow")
+            cell.classList.remove("Black")
+        })
+})
+}
+
+
 
 function hoverBlack() {
     const boxes = document.querySelectorAll(".cell")
@@ -56,8 +92,8 @@ function makeGrid(number) {
 }
 
 function makeRow() {
-    let cellWidth = 700/number + "px"
-    let cellHeight = 700/number  + "px"
+    let cellWidth = 500/number + "px"
+    let cellHeight = 500/number  + "px"
     const row = document.createElement("div")
     for (i = 0; i < number; i++) {
         const cells = document.createElement("div")
